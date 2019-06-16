@@ -7,6 +7,7 @@ const path = require('path');
 
 const app = express();
 const server = require('http').createServer(app);
+const mongoose = require('mongoose');
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
@@ -14,6 +15,13 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 app.use(cors());
+
+mongoose.connect('mongodb://localhost:27017/NBA');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'mongoose connection error'));
+db.once('open', () => {
+  console.log('mongoose connection succeeded');
+});
 
 const nbaRoutes = require('./express_routes/nba_api.js');
 

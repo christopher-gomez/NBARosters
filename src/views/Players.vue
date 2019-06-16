@@ -34,7 +34,7 @@ export default {
       page: 1,
       complete: false,
       visible: true,
-      loadingText: '<p>...Loading...<br>...This may take a while due to limitations with the API I found...</p>'
+      loadingText: '<p>Loading...<p>'
     };
   },
   created() {
@@ -42,20 +42,12 @@ export default {
   },
   methods: {
     async getPlayers() {
-      const response = await NBA.getPlayers(this.page);
+      const response = await NBA.getPlayers(this.team.name);
       if (response.data) {
-        for (let i = 0; i < response.data.players.length; i+=1) {
-          if (response.data.players[i].team.name === this.team.name && response.data.players[i].height_feet !== null) {
-            this.players.push(response.data.players[i]);
-          }
-        }
-        if (response.data.meta.total_pages !== this.page) {
-          this.page += 1;
-          this.getPlayers();
-        } else {
-          this.complete = true;
-          this.visible = false;
-        }
+        console.log(response.data);
+        this.players = response.data.players;
+        this.complete = true;
+        this.visible = false;
       }
     },
   },

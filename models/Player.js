@@ -1,0 +1,26 @@
+const mongoose = require('mongoose');
+
+// eslint-disable-next-line prefer-destructuring
+const Schema = mongoose.Schema;
+
+const playerSchema = new Schema({
+  id: Number,
+  first_name: String,
+  last_name: String,
+  position: String,
+  height_feet: Number,
+  height_inches: Number,
+  weight_pounds: Number,
+  team: {
+    id: Number,
+    abbreviation: String,
+    city: String,
+    conference: String,
+    division: String,
+    full_name: String,
+    name: String,
+  },
+});
+
+const Player = mongoose.model('Player', playerSchema, 'players');
+module.exports = Player;
