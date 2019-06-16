@@ -27,7 +27,7 @@
 <script>
 
 export default {
-  name: "Card",
+  name: "PlayerCard",
   props: {
     player: {
       type: Object,

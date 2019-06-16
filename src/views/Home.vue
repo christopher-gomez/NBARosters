@@ -1,20 +1,31 @@
 <template>
   <div class="home">
-    <CardViewer :players="players"/>
+    <CardGrid :teams='teams'/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CardViewer from "@/components/CardCarousel.vue";
+import Team from '@/components/TeamCard.vue';
+import CardGrid from '@/components/CardGrid.vue';
 
 export default {
   name: "home",
   components: {
-    CardViewer
+    CardViewer,
+    Team,
+    CardGrid,
   },
   data() {
     return {
+      teams: [
+        "Lakers",
+        "Raptors",
+        "Magic",
+        "Heat",
+        "Warriors"
+      ],
       players: [
         {
           first_name: "LeBron",
