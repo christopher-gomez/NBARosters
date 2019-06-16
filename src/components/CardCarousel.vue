@@ -41,14 +41,4 @@ export default {
 .cards {
   margin: 0 auto;
 }
-button {
-  background: none;
-  border: none;
-  font-size: 2em;
-  margin: 20px 20px;
-  outline: none;
-}
-button:hover {
-  cursor: pointer;
-}
 </style>

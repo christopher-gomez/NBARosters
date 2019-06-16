@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class=cardClass(team)>
+  <div class="card" :class=cardClass(team) @click='navigate()'>
     <div class="front card-face">
       <h1>{{team}}</h1>
     </div>
@@ -16,6 +16,9 @@ export default {
     }
   },
   methods: {
+	  navigate() {
+		  this.$router.push('players');
+	  },
     cardClass(team) {
       let result = [];
       switch (team) {

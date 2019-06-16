@@ -1,31 +1,19 @@
 <template>
-  <div class="home">
-    <CardGrid :teams='teams'/>
+  <div class="players">
+	  <button style='display:flex;left:1em;' @click="$router.go(-1)"><font-awesome-icon icon="arrow-left"/></button>
+    <CardCarousel :players="players"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import CardViewer from "@/components/CardCarousel.vue";
-import Team from '@/components/TeamCard.vue';
-import CardGrid from '@/components/CardGrid.vue';
-
+import CardCarousel from "@/components/CardCarousel.vue";
 export default {
-  name: "home",
+  name: "PlayerView",
   components: {
-    CardViewer,
-    Team,
-    CardGrid,
+    CardCarousel
   },
   data() {
     return {
-      teams: [
-        "Lakers",
-        "Raptors",
-        "Magic",
-        "Heat",
-        "Warriors"
-      ],
       players: [
         {
           first_name: "LeBron",
@@ -34,15 +22,6 @@ export default {
           height: "6'8",
           weight: "250",
           team: "Los Angeles Lakers",
-          position: "F",
-        },
-        {
-          first_name: "Kawhi",
-          last_name: "Leonard",
-          age: "28",
-          height: "6'7",
-          weight: "240",
-          team: "Toronto Raptors",
           position: "F"
         },
         {
@@ -63,14 +42,23 @@ export default {
           team: "Toronto Raptors",
           position: "F"
         },
+        {
+          first_name: "Kawhi",
+          last_name: "Leonard",
+          age: "28",
+          height: "6'7",
+          weight: "240",
+          team: "Toronto Raptors",
+          position: "F"
+        }
       ]
     };
-  }
+  },
 };
 </script>
 
 <style scoped>
-.home {
-  margin: 0 auto;
+.players {
+	margin: 0 auto;
 }
 </style>

@@ -24,4 +24,14 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  margin: 20px 20px;
+  outline: none !important;
+}
+button:hover {
+  cursor: pointer;
+}
 </style>

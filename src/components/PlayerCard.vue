@@ -4,7 +4,7 @@
       <img :src="photoLink" alt="NBA Player Headshot" class="card-photo">
       <div class="player-info">
         <h2>{{player.first_name+" "+player.last_name}}</h2>
-        <hr style="width:70%">
+        <hr style="width:70%; background-color:white;">
         <h3>{{player.team}}</h3>
         <p>Age: {{player.age}}</p>
         <p>Position: {{player.position}}</p>
@@ -61,7 +61,7 @@ export default {
   width: 300px;
   max-width: 300px;
   height: 450px;
-  margin: 0 auto;
+  margin: 1em auto;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 1s, box-shadow 0.4s;
