@@ -4,11 +4,11 @@ export default {
   getTeams() {
     return Api().get('/nba/teams');
   },
+  getTeamPlayers(team) {
+    return Api().get(`/nba/teams/${team}/players`);
+  },
   getAllPlayers() {
     return Api().get('/nba/players');
-  },
-  getPlayers(team) {
-    return Api().get(`/nba/players/${team}`);
   },
   checkPlayersExist() {
     return Api().get('/nba/players/check');

@@ -34,7 +34,7 @@ export default {
       page: 1,
       complete: false,
       visible: true,
-      loadingText: '<p>Loading...<p>'
+      loadingText: '<p>...Loading...<br>...This may take a while due to limitations with the API I found...</p>'
     };
   },
   created() {
@@ -42,9 +42,8 @@ export default {
   },
   methods: {
     async getPlayers() {
-      const response = await NBA.getPlayers(this.team.name);
+      const response = await NBA.getTeamPlayers(this.team.name);
       if (response.data) {
-        console.log(response.data);
         this.players = response.data.players;
         this.complete = true;
         this.visible = false;

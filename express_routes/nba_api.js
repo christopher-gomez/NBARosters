@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require('express');
 const request = require('request');
 const mongoose = require('mongoose');
@@ -36,8 +35,18 @@ nbaRoutes.route('/teams/:id').get((req, res) => {
   });
 });
 
+nbaRoutes.route('/teams/:team/players/').get((req, res) => {
+  Player.find({ 'team.name': req.params.team }, (error, players) => {
+    if (error) {
+      return res.status(500);
+    }
+    return res.status(200).send({
+      players,
+    });
+  });
+});
+
 nbaRoutes.route('/players/check').get((req, res) => {
-  console.log('checking players\n\n');
   mongoose.connection.collection('players').countDocuments((err, count) => {
     if (err) {
       return res.status(500);
@@ -71,17 +80,6 @@ nbaRoutes.route('/players/:id').get((req, res) => {
     }
     return res.status(200).send({
       player,
-    });
-  });
-});
-
-nbaRoutes.route('/players/:team').get((req, res) => {
-  Player.find({ 'team.name': req.params.team }, (error, players) => {
-    if (error) {
-      return res.status(500);
-    }
-    return res.status(200).send({
-      players,
     });
   });
 });
