@@ -1,8 +1,9 @@
 <template>
-  <div class='card' :class=cardClass(team) @click='navigate()'>
+  <div class='card' :class=cardClass(team.name) @click='navigate()'>
     <div class='front card-face'>
-      <h1>{{team}}</h1>
+      <h1 style='margin-top:1em'>{{team.name}}</h1>
     </div>
+    <img class='card-photo' :src="require(`@/assets/logos/${team.name}.png`)" alt='NBA Logo'/>
   </div>
 </template>
 
@@ -11,7 +12,7 @@ export default {
   name: 'TeamCard',
   props: {
     team: {
-      type: String,
+      type: Object,
       required: true,
     },
   },
@@ -233,10 +234,16 @@ export default {
   cursor: pointer;
 }
 
-.front,
-.card-photo {
+.front {
   width: 100%;
   height: 100%;
+}
+
+.card-photo {
+  object-fit:scale-down;
+  width: 50%;
+  height: 50%;
+  margin: 0 auto;
 }
 
 .card-face {

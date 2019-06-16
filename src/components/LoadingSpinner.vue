@@ -3,10 +3,7 @@
     <div ref='bubble' class='bubble'>
       <img class='bubble-image' src='../assets/nba.png'>
     </div>
-		<p class='text'>...Loading...
-			<br>...This may take a while due to limitations with the API I found...
-		  <br>(Loader animated with GSAP!)
-		</p>
+		<div class='text' v-if=text v-html='text'></div>
     <div ref='bubblePulse' class='bubble-pulse'></div>
   </div>
 </template>
@@ -18,6 +15,10 @@ export default {
 		visible: {
 			type: Boolean,
 			required: true,
+		},
+		text: {
+			type: String,
+			required: false,
 		},
 	},
   mounted() {

@@ -3,9 +3,8 @@
     <div class='front card-face'>
       <img :src='photoLink' alt='NBA Player Headshot' class='card-photo'>
       <div class='player-info'>
-        <h2>{{player.first_name+' '+player.last_name}}</h2>
+        <h2 style='margin-top:1em;'>{{player.first_name+' '+player.last_name}}</h2>
         <hr style='width:70%; background-color:white;'>
-        <h3>{{player.team.name}}</h3>
         <p>Position: {{player.position}}</p>
         <p>Height: {{player.height_feet}}'{{player.height_inches}}</p>
         <p>Weight: {{player.weight_pounds}}</p>
@@ -40,11 +39,25 @@ export default {
     };
   },
   mounted() {
-    this.photoLink = `https://nba-players.herokuapp.com/players/${this.player.last_name}/${this.player.first_name}`;
+    var url = `https://nba-players.herokuapp.com/players/${this.player.last_name}/${this.player.first_name}`;
+    var self = this;
+    this.imageExists(url, function(exists) {
+      if (!exists) {
+        self.photoLink = require('@/assets/sil.png');
+      } else {
+        self.photoLink = url;
+      }
+    });
   },
   methods: {
     flip() {
       this.isFlipped = !this.isFlipped;
+    },
+    imageExists(url, callback) {
+      var img = new Image();
+      img.onload = function() { callback(true); };
+      img.onerror = function() { callback(false); };
+      img.src = url;
     },
   },
 };

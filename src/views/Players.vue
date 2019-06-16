@@ -1,9 +1,12 @@
 <template>
   <div class='players'>
-    <Loader :visible='visible' />
-    <button style='display:flex;left:1em;' @click='$router.go(-1)'>
-      <font-awesome-icon icon='arrow-left'/>
-    </button>
+    <Loader :visible='visible' :text='loadingText'/>
+    <div style='width:95%;'>
+      <button style='disaply:inline-block;width:1%' @click='$router.go(-1)' v-if='!visible'>
+        <font-awesome-icon icon='arrow-left'/>
+      </button>
+      <h1 style='color:black;display:inline-block;width:94%' v-if='!visible'>{{team.full_name}}</h1>
+    </div>
     <CardCarousel v-if='complete' :players='players'/>
   </div>
 </template>
@@ -12,19 +15,16 @@
 import CardCarousel from '@/components/CardCarousel.vue';
 import Loader from '@/components/LoadingSpinner.vue';
 import NBA from '@/services/NBAService.js';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'PlayerView',
   components: {
     CardCarousel,
-    Loading,
     Loader,
   },
   props: {
     team: {
-      type: String,
+      type: Object,
       required: true,
     },
   },
@@ -34,6 +34,7 @@ export default {
       page: 1,
       complete: false,
       visible: true,
+      loadingText: '<p>...Loading...<br>...This may take a while due to limitations with the API I found...</p>'
     };
   },
   created() {
@@ -44,7 +45,7 @@ export default {
       const response = await NBA.getPlayers(this.page);
       if (response.data) {
         for (let i = 0; i < response.data.players.length; i+=1) {
-          if (response.data.players[i].team.name === this.team && response.data.players[i].height_feet !== null) {
+          if (response.data.players[i].team.name === this.team.name && response.data.players[i].height_feet !== null) {
             this.players.push(response.data.players[i]);
           }
         }

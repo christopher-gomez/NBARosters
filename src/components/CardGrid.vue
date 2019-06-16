@@ -2,7 +2,7 @@
   <b-container>
 	  <b-row>
 		  <b-col v-for='(team, index) in teams' :key=index>
-			  <TeamCard :team='team.name'></TeamCard>
+			  <TeamCard :team='team'></TeamCard>
 		  </b-col>
 	  </b-row>
   </b-container>
