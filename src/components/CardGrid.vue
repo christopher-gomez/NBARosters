@@ -2,26 +2,26 @@
   <b-container>
 	  <b-row>
 		  <b-col v-for='(team, index) in teams' :key=index>
-			  <TeamCard :team="team"></TeamCard>
+			  <TeamCard :team='team.name'></TeamCard>
 		  </b-col>
 	  </b-row>
   </b-container>
 </template>
 
 <script>
-import TeamCard from "@/components/TeamCard.vue";
+import TeamCard from '@/components/TeamCard.vue';
 
 export default {
-  name: "CardGrid",
+  name: 'CardGrid',
   props: {
 	  teams: {
 		  type: Array,
-		  required: true,
-	  },
-  },
+			required: true,
+		},
+	},
   components: {
-    TeamCard
-  }
+    TeamCard,
+  },
 };
 </script>
 

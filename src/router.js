@@ -18,6 +18,7 @@ export default new Router({
       path: '/players',
       name: 'PlayerView',
       component: PlayerView,
+      props: true,
     },
     {
       path: '*',

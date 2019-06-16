@@ -1,6 +1,6 @@
 <template>
-  <div class="card" :class=cardClass(team) @click='navigate()'>
-    <div class="front card-face">
+  <div class='card' :class=cardClass(team) @click='navigate()'>
+    <div class='front card-face'>
       <h1>{{team}}</h1>
     </div>
   </div>
@@ -8,119 +8,121 @@
 
 <script>
 export default {
-  name: "TeamCard",
+  name: 'TeamCard',
   props: {
     team: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
-	  navigate() {
-		  this.$router.push('players');
-	  },
+    navigate() {
+      this.$router.push({ name: 'PlayerView', params: { team: this.team } });
+    },
     cardClass(team) {
-      let result = [];
+      const result = [];
       switch (team) {
-        case "Hawks":
+        case 'Hawks':
           result.push(team);
           break;
-        case "Celtics":
+        case 'Celtics':
           result.push(team);
           break;
-        case "Nets":
+        case 'Nets':
           result.push(team);
           break;
-        case "Hornets":
+        case 'Hornets':
           result.push(team);
           break;
-        case "Bulls":
+        case 'Bulls':
           result.push(team);
           break;
-        case "Cavaliers":
-          result.push("Cavs");
+        case 'Cavaliers':
+          result.push('Cavs');
           break;
-        case "Mavericks":
-          result.push("Mavs");
+        case 'Mavericks':
+          result.push('Mavs');
           break;
-        case "Nuggets":
+        case 'Nuggets':
           result.push(team);
           break;
-        case "Pistons":
+        case 'Pistons':
           result.push(team);
           break;
-        case "Warriors":
+        case 'Warriors':
           result.push(team);
           break;
-        case "Rockets":
+        case 'Rockets':
           result.push(team);
           break;
-        case "Pacers":
+        case 'Pacers':
           result.push(team);
           break;
-        case "Clippers":
+        case 'Clippers':
           result.push(team);
           break;
-        case "Lakers":
+        case 'Lakers':
           result.push(team);
           break;
-        case "Grizzlies":
+        case 'Grizzlies':
           result.push(team);
           break;
-        case "Heat":
+        case 'Heat':
           result.push(team);
           break;
-        case "Bucks":
+        case 'Bucks':
           result.push(team);
           break;
-        case "Timberwolves":
-          result.push("Wolves");
+        case 'Timberwolves':
+          result.push('Wolves');
           break;
-        case "Pelicans":
-          result.push("Pels");
+        case 'Pelicans':
+          result.push('Pels');
           break;
-        case "Knicks":
+        case 'Knicks':
           result.push(team);
           break;
-        case "Thunder":
+        case 'Thunder':
           result.push(team);
           break;
-        case "Magic":
+        case 'Magic':
           result.push(team);
           break;
-        case "76ers":
-          result.push("sixers");
+        case '76ers':
+          result.push('Sixers');
           break;
-        case "Suns":
+        case 'Suns':
           result.push(team);
           break;
-        case "Trail Blazers":
-          result.push("Blazers");
+        case 'Trail Blazers':
+          result.push('Blazers');
           break;
-        case "Kings":
+        case 'Kings':
           result.push(team);
           break;
-        case "Spurs":
+        case 'Spurs':
           result.push(team);
           break;
-        case "Raptors":
+        case 'Raptors':
           result.push(team);
           break;
-        case "Jazz":
+        case 'Jazz':
           result.push(team);
           break;
-        case "Wizards":
+        case 'Wizards':
           result.push(team);
           break;
+        default:
+          result.push('');
       }
       return result;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang='scss' scoped>
-@import "../styles/index.scss";
+@import '../styles/index.scss';
 
 .Hawks {
   background: $hawks;

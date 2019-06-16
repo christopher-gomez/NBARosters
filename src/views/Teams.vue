@@ -1,33 +1,35 @@
 <template>
-  <div class="home">
+  <div class='home'>
     <CardGrid :teams='teams'/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import CardViewer from "@/components/CardCarousel.vue";
-import Team from '@/components/TeamCard.vue';
 import CardGrid from '@/components/CardGrid.vue';
+import NBA from '@/services/NBAService.js';
 
 export default {
-  name: "Teams",
+  name: 'Teams',
   components: {
-    CardViewer,
-    Team,
     CardGrid,
   },
   data() {
     return {
-      teams: [
-        "Lakers",
-        "Raptors",
-        "Magic",
-        "Heat",
-        "Warriors"
-      ],
+      teams: [],
     };
-  }
+  },
+  created() {
+    this.getTeams();
+  },
+  methods: {
+    async getTeams() {
+      const response = await NBA.getTeams();
+      if (response.data) {
+        this.teams = response.data.teams;
+      }
+    },
+  },
 };
 </script>
 

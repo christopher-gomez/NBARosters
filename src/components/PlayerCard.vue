@@ -1,24 +1,23 @@
 <template>
-  <div class="card" :class="{flipped: isFlipped}">
-    <div class="front card-face">
-      <img :src="photoLink" alt="NBA Player Headshot" class="card-photo">
-      <div class="player-info">
-        <h2>{{player.first_name+" "+player.last_name}}</h2>
-        <hr style="width:70%; background-color:white;">
-        <h3>{{player.team}}</h3>
-        <p>Age: {{player.age}}</p>
+  <div class='card' :class='{flipped: isFlipped}'>
+    <div class='front card-face'>
+      <img :src='photoLink' alt='NBA Player Headshot' class='card-photo'>
+      <div class='player-info'>
+        <h2>{{player.first_name+' '+player.last_name}}</h2>
+        <hr style='width:70%; background-color:white;'>
+        <h3>{{player.team.name}}</h3>
         <p>Position: {{player.position}}</p>
-        <p>Height: {{player.height}}</p>
-        <p>Weight: {{player.weight}}</p>
+        <p>Height: {{player.height_feet}}'{{player.height_inches}}</p>
+        <p>Weight: {{player.weight_pounds}}</p>
       </div>
-      <i class="flip-button" @click="flip()">
-        <font-awesome-icon icon="share"/>
+      <i class='flip-button' @click='flip()'>
+        <font-awesome-icon icon='share'/>
       </i>
     </div>
-    <div class="back card-face">
+    <div class='back card-face'>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <i class="flip-button" @click="flip()">
-        <font-awesome-icon icon="share"/>
+      <i class='flip-button' @click='flip()'>
+        <font-awesome-icon icon='share'/>
       </i>
     </div>
   </div>
@@ -27,31 +26,27 @@
 <script>
 
 export default {
-  name: "PlayerCard",
+  name: 'PlayerCard',
   props: {
     player: {
       type: Object,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
       isFlipped: false,
-      photoLink: ""
+      photoLink: '',
     };
   },
   mounted() {
-    this.photoLink =
-      "https://nba-players.herokuapp.com/players/" +
-      this.player.last_name +
-      "/" +
-      this.player.first_name;
+    this.photoLink = `https://nba-players.herokuapp.com/players/${this.player.last_name}/${this.player.first_name}`;
   },
   methods: {
     flip() {
       this.isFlipped = !this.isFlipped;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -118,7 +113,7 @@ export default {
   text-align: center;
   color: darkgray;
   border-radius: 10px;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 600;
 }
 
