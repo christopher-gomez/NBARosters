@@ -8,19 +8,19 @@
         <Card ref='form' :team='team' @add='addPlayer()'/>
       </vue-glide-slide>
       <template slot='control'>
-        <button @click='activeSlide = 0'>
+        <button class='controls' @click='activeSlide = 0'>
           <font-awesome-icon icon='angle-double-left'/>
         </button>
-        <button @click='decSlide()'>
+        <button class='controls' @click='decSlide()'>
           <font-awesome-icon icon='angle-left'/>
         </button>
         <button style='display:inline-block' @click='create()'>
           <font-awesome-icon icon='plus'/>
         </button>
-        <button @click='incSlide()'>
+        <button class='controls' @click='incSlide()'>
           <font-awesome-icon icon='angle-right'/>
         </button>
-        <button @click='activeSlide = playArr.length - 1'>
+        <button class='controls' @click='activeSlide = playArr.length - 1'>
           <font-awesome-icon icon='angle-double-right'/>
         </button>
       </template>
@@ -95,7 +95,7 @@ export default {
         this.activeSlide -= 1;
         this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
       }
-    }
+    },
   },
 };
 </script>
@@ -103,5 +103,35 @@ export default {
 <style scoped>
 .cards {
   margin: 0 auto;
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (max-width: 768px) {
+  .controls {
+    display: none;
+  }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 767px) {
+  .controls {
+    display: none;
+  }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  .controls {
+    display: none;
+  } 
 }
 </style>
