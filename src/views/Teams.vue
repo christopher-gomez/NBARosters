@@ -4,7 +4,7 @@
     <img style='height:100px;width:180px;margin:1px auto;' src='../assets/nba2.png' />
     <h3 style='color:#0d6bb7;font-size:1.5em;'>2018-2019 Rosters</h3>
     <hr style='background:black;width:80%'> 
-    <CardGrid :teams='teams'/>
+    <CardGrid id='grid' :teams='teams'/>
   </div>
 </template>
 
@@ -24,33 +24,20 @@ export default {
     return {
       teams: [],
       visible: true,
-      counter: 0,
-      len: 0,
     };
   },
   created() {
     this.getTeams();
-  },
-  mounted() {
-    this.visible = true;
-    const imgs = document.getElementById('teams').getElementsByTagName('img');
-    this.len = imgs.length;
-    const self = this;
-    [].forEach.call( imgs, function( img ) {
-      img.addEventListener( 'load', self.incrementCounter, false )
-    });
   },
   methods: {
     async getTeams() {
       const response = await NBA.getTeams();
       if (response.data) {
         this.teams = response.data.teams;
-      }
-    },
-    incrementCounter() {
-      this.counter++;
-      if (this.counter === this.len ) {
-        this.visible = false;
+        const self = this;
+        setTimeout(() => {
+          self.visible = false;
+        }, 2000);
       }
     },
   },

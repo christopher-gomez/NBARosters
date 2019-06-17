@@ -30,21 +30,10 @@ export default {
       visible: true,
       loadingText: '<p>Loading...</p>',
       team: Object,
-      counter: 0,
-      len: 0,
     };
   },
   created() {
     this.getTeam();
-  },
-  mounted() {
-    this.visible = true;
-    const imgs = document.getElementById('teams').getElementsByTagName('img');
-    this.len = imgs.length;
-    const self = this;
-    [].forEach.call( imgs, function( img ) {
-      img.addEventListener( 'load', self.incrementCounter, false )
-    });
   },
   methods: {
     async getTeam() {
@@ -61,18 +50,15 @@ export default {
       if (response.data) {
         this.players = response.data.players;
         this.complete = true;
-        this.visible = false;
+        const self = this;
+        setTimeout(() => {
+          self.visible = false;
+        }, 1000);
       }
     },
     // Hacky
     refresh() {
       this.getTeam();
-    },
-    incrementCounter() {
-      this.counter++;
-      if (this.counter === this.len ) {
-        this.visible = false;
-      }
     },
   },
 };
