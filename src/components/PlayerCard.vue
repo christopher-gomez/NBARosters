@@ -219,7 +219,7 @@ export default {
       this.$v.$touch()
       if(this.$v.createdPlayer.$invalid) {
         return;
-      } else { 
+      } else {
         let res = this.createdPlayer.full_name.split(' ');
         this.createdPlayer.first_name = res[0];
         if (res[1] !== undefined) {
@@ -244,7 +244,7 @@ export default {
       this.$v.$touch()
       if(this.$v.addiFact.$invalid) {
         return;
-      } else { 
+      } else {
         this.updatePlayer.additional_facts.push(this.addiFact);
         const response = await NBA.updatePlayer(this.updatePlayer);
         if (response.status === 200) {
@@ -301,15 +301,6 @@ label {
   outline: none;
 }
 
-.form-signin input:focus,
-textarea:focus,
-.form-signup input:focus,
-textarea:focus {
-  background: rgba(255, 255, 255, 0.3);
-  border: none;
-  padding-right: 40px;
-  transition: background 0.5s ease;
-}
 .card {
   display: flex;
   width: 300px;
@@ -398,7 +389,7 @@ textarea:focus {
 }
 
 .fact-trash-button {
-  display:inline-block; 
+  display:inline-block;
   margin-left:1em;
 }
 

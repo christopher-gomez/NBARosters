@@ -88,6 +88,7 @@ nbaRoutes.route('/players').post((req, res) => {
   const newPlayer = new Player({
     first_name: req.body.player.first_name,
     last_name: req.body.player.last_name,
+    full_name: `${req.body.player.first_name} ${req.body.player.last_name}`,
     position: req.body.player.position,
     height_feet: req.body.player.height_feet,
     height_inches: req.body.player.height_inches,
@@ -150,6 +151,7 @@ nbaRoutes.route('/players/download/:page').get((req, res) => {
         const player = new Player({
           first_name: body.data[i].first_name,
           last_name: body.data[i].last_name,
+          full_name: `${body.data[i].first_name} ${body.data[i].last_name}`,
           position: body.data[i].position,
           height_feet: body.data[i].height_feet,
           height_inches: body.data[i].height_inches,

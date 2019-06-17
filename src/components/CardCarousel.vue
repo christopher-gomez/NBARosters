@@ -86,7 +86,7 @@ export default {
     },
     deletePlayer(player) {
       this.playArr = this.playArr.filter((obj) => {
-        return obj._id !== player._id; 
+        return obj._id !== player._id;
       });
       if (this.activeSlide === 0) {
         this.activeSlide += 1;
@@ -132,6 +132,6 @@ export default {
 @media (min-width: 320px) and (max-width: 480px) {
   .controls {
     display: none;
-  } 
+  }
 }
 </style>
