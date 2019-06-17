@@ -78,7 +78,7 @@
       <h3 style='margin-top:1em'>Additional Facts</h3>
       <hr style='background:white;width:70%'>
       <div v-if='currPlayer && currPlayer.additional_facts'>
-        <p v-for='(fact, index) in currPlayer.additional_facts' :key='index' v-on:mouseover='factHover=true' v-on:mouseleave='factHover=false'>{{ fact }}
+        <p v-for='(fact, index) in currPlayer.additional_facts' :key='index' v-on:mouseover='factHover=true' v-on:mouseleave='factHover=false' style='display:block;margin:0 auto;'>{{ fact }}
           <i class='fact-trash-button' v-if='factHover' @click='removeFact(fact)'>
             <font-awesome-icon icon='trash'/>
           </i>
@@ -387,10 +387,6 @@ textarea:focus {
 
 .back p {
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .flipped {
