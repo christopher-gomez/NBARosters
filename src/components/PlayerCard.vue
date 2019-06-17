@@ -92,6 +92,7 @@
           style='width:80%;height:35px;margin:1em 2em;display:block;bottom:2em; position:absolute;'
           autocomplete='off'
           v-model='addiFact'
+          v-on:keyup.enter='addFact()'
         >
       <i class='flip-button' @click='flip()'>
         <font-awesome-icon icon='reply'/>

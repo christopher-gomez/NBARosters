@@ -16,7 +16,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/NBA');
+let murl = 'mongodb://localhost:27017/NBA';
+if (process.env.NODE_ENV === 'production') {
+  murl = `mongodb://${process.env.dbuser}:${process.env.dbpassword}@ds139037.mlab.com:39037/heroku_2w5t1nb`;
+}
+
+mongoose.connect(murl);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongoose connection error'));
 db.once('open', () => {
