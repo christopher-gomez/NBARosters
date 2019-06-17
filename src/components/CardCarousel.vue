@@ -25,7 +25,6 @@
 <script>
 import Card from '@/components/PlayerCard.vue';
 import { Glide, GlideSlide } from 'vue-glide-js';
-import { EventBus } from '@/services/EventBus.js';
 
 export default {
   name: 'Stack',
@@ -43,14 +42,11 @@ export default {
       type: Object,
       required: true,
     },
-    activeSlide: {
-      type: Number,
-      required: true,
-    }
   },
   data() {
     return {
       playArr: Array,
+      activeSlide: 0,
     };
   },
   created() {

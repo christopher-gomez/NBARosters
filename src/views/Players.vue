@@ -7,7 +7,7 @@
       </button>
       <h1 style='color:black;display:inline-block;width:94%' v-if='!visible'>{{team.full_name}}</h1>
     </div>
-    <CardCarousel v-if='complete' :players='players' :team='team' :activeSlide='4' @update='refresh()' />
+    <CardCarousel v-if='complete' :players='players' :team='team' @update='refresh()' />
   </div>
 </template>
 
@@ -30,7 +30,6 @@ export default {
       visible: true,
       loadingText: '<p>Loading...</p>',
       team: Object,
-      slide: 0,
     };
   },
   created() {
@@ -38,9 +37,9 @@ export default {
   },
   methods: {
     async getTeam() {
+      this.visible = true;
       this.complete = false;
       const response = await NBA.getTeam(this.$route.query.team);
-      this.slide = parseInt(this.$route.query.slide, 10);
       if (response.data) {
         this.team = response.data.team;
         this.getPlayers();

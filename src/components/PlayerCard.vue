@@ -10,21 +10,63 @@
         <p>Weight: {{player.weight_pounds}}</p>
       </div>
       <div v-else class='player-info'>
-        <input class="form-styling" type="text" name="position" placeholder="New Player" style='width:80%;height:35px; margin-top:1em' autocomplete="off" v-model='createdPlayer.full_name'/>
+        <input
+          class='form-styling'
+          type='text'
+          name='position'
+          placeholder='New Player'
+          style='width:80%;height:35px; margin-top:1em'
+          autocomplete='off'
+          v-model='createdPlayer.full_name'
+        >
         <hr style='width:70%; background-color:white;'>
-        <label for="position">Position:</label>
-        <input class="form-styling" type="text" name="position" placeholder="" autocomplete="off" v-model='createdPlayer.position'/>
+        <label for='position'>Position:</label>
+        <input
+          class='form-styling'
+          type='text'
+          name='position'
+          placeholder
+          autocomplete='off'
+          v-model='createdPlayer.position'
+        >
         <br>
         <div style='margin:.5em .5em;'>
-          <label for="height">Height:</label>
-          <input class="form-styling" type="text" name="height" placeholder="" style='width:10%' autocomplete="off" v-model='createdPlayer.height_feet'/>
+          <label for='height'>Height:</label>
+          <input
+            class='form-styling'
+            type='text'
+            name='height'
+            placeholder
+            style='width:10%'
+            autocomplete='off'
+            v-model='createdPlayer.height_feet'
+            id='height'
+          >
           <p style='display:inline-block;margin:0 2px;'>'</p>
-          <input class="form-styling" type="text" name="height" placeholder="" style='width:10%' autocomplete="off" v-model='createdPlayer.height_inches'/>
+          <input
+            class='form-styling'
+            type='text'
+            name='height'
+            placeholder
+            style='width:10%'
+            autocomplete='off'
+            v-model='createdPlayer.height_inches'
+          >
         </div>
-        <label for="height">Weight:</label>
-        <input class="form-styling" type="text" name="weight" placeholder="" autocomplete="off" v-model='createdPlayer.weight_pounds'/>
+        <label for='height'>Weight:</label>
+        <input
+          class='form-styling'
+          type='text'
+          name='weight'
+          placeholder
+          autocomplete='off'
+          v-model='createdPlayer.weight_pounds'
+        >
         <br>
-        <button style='color:white; height:10px;width:60px;font-size:18px;' @click='createPlayer()'>Save</button>  
+        <button
+          style='color:white; height:10px;width:60px;font-size:18px;'
+          @click='createPlayer()'
+        >Save</button>
       </div>
       <i class='flip-button' @click='flip()' v-if='player'>
         <font-awesome-icon icon='reply'/>
@@ -44,7 +86,7 @@
 
 <script>
 import NBA from '@/services/NBAService';
-import { EventBus } from '@/services/EventBus.js';
+import { required, minLength, maxLength, integer, alpha } from 'vuelidate/lib/validators';
 
 export default {
   name: 'PlayerCard',
@@ -56,7 +98,37 @@ export default {
     team: {
       type: Object,
       required: true
-    },
+    }
+  },
+  validations: {
+    createdPlayer: {
+      full_name: {
+        required,
+        minLength: minLength(1),
+      },
+      position: {
+        minLength: minLength(1),
+        maxLength: maxLength(3),
+        required,
+        alpha,
+      },
+      height_feet: {
+        minLength: minLength(1),
+        required,
+        integer,
+      },
+      height_inches: {
+        minLength: minLength(1),
+        maxLength: maxLength(2),
+        required,
+        integer,
+      },
+      weight_pounds: {
+        minLength: minLength(1),
+        required,
+        integer,
+      }
+    }
   },
   data() {
     return {
@@ -77,7 +149,7 @@ export default {
           conference: this.team.conference,
           division: this.team.division,
           full_name: this.team.full_name,
-          name: this.team.name,
+          name: this.team.name
         },
       },
     };
@@ -87,7 +159,9 @@ export default {
       this.photoLink = require('@/assets/sil.png');
       return;
     }
-    var url = `https://nba-players.herokuapp.com/players/${this.player.last_name}/${this.player.first_name}`;
+    var url = `https://nba-players.herokuapp.com/players/${
+      this.player.last_name
+    }/${this.player.first_name}`;
     var self = this;
     this.imageExists(url, function(exists) {
       if (!exists) {
@@ -103,20 +177,28 @@ export default {
     },
     imageExists(url, callback) {
       var img = new Image();
-      img.onload = function() { callback(true); };
-      img.onerror = function() { callback(false); };
+      img.onload = function() {
+        callback(true);
+      };
+      img.onerror = function() {
+        callback(false);
+      };
       img.src = url;
     },
     async createPlayer() {
-      if (this.createdPlayer.full_name === undefined || this.createdPlayer.position === undefined || this.createdPlayer.height_feet === undefined || this.createdPlayer.height_inches === undefined || this.createdPlayer.weight_pounds === undefined) {
+      this.$v.$touch()
+      if(this.$v.$invalid) {
         return;
-      }
-      let res = this.createdPlayer.full_name.split(' ');
-      this.createdPlayer.first_name = res[0];
-      this.createdPlayer.last_name = res[1];
-      const response = await NBA.createPlayer(this.createdPlayer);
-      if (response.status === 200) {
-        this.$emit('add');
+      } else { 
+        let res = this.createdPlayer.full_name.split(' ');
+        this.createdPlayer.first_name = res[0];
+        if (res[1] !== undefined) {
+          this.createdPlayer.last_name = res[1];
+        }
+        const response = await NBA.createPlayer(this.createdPlayer);
+        if (response.status === 200) {
+          this.$emit('add');
+        }
       }
     },
     async deletePlayer() {
@@ -124,19 +206,11 @@ export default {
         return;
       }
       const response = await NBA.deletePlayer(this.player._id);
-      if(response.status === 200) {
+      if (response.status === 200) {
         this.$emit('delete', this.player);
       }
     },
-    reset() {
-      console.log('resetting');
-      this.createdPlayer.full_name = ''; 
-      this.createdPlayer.position = '';
-      this.createdPlayer.height_feet = '';
-      this.createdPlayer.height_inches = ''; 
-      this.createdPlayer.weight_pounds = '';
-    }
-  },
+  }
 };
 </script>
 
@@ -144,40 +218,47 @@ export default {
 .form-styling {
   width: 20%;
   height: 25px;
-	border: none;
-	border-radius: 20px;
-  background: rgba(255,255,255,.2);
-  color:white;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   display: inline-block;
-  text-align:center;
+  text-align: center;
 }
 
-::placeholder { /* Firefox, Chrome, Opera */ 
-    color: white; 
-} 
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
-    color: white; 
-} 
-  
-::-ms-input-placeholder { /* Microsoft Edge */ 
-    color: white; 
-} 
+::placeholder {
+  /* Firefox, Chrome, Opera */
+  color: white;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: white;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: white;
+}
 
 label {
   display: inline-block;
-  margin-right:.5em;
+  margin-right: 0.5em;
 }
 
-:focus {outline: none;
+:focus {
+  outline: none;
 }
 
-.form-signin input:focus, textarea:focus, .form-signup input:focus, textarea:focus {
-    background: rgba(255,255,255,.3);
-    border: none; 
-    padding-right: 40px;
-    transition: background .5s ease;
- }
+.form-signin input:focus,
+textarea:focus,
+.form-signup input:focus,
+textarea:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding-right: 40px;
+  transition: background 0.5s ease;
+}
 .card {
   display: flex;
   width: 300px;
