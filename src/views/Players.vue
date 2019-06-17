@@ -7,7 +7,7 @@
       </button>
       <h1 style='color:black;display:inline-block;width:94%' v-if='!visible'>{{team.full_name}}</h1>
     </div>
-    <CardCarousel v-if='complete' :players='players'/>
+    <CardCarousel v-if='complete' :players='players' :team='team' :activeSlide='4' @update='refresh()' />
   </div>
 </template>
 
@@ -22,25 +22,31 @@ export default {
     CardCarousel,
     Loader,
   },
-  props: {
-    team: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
       players: [],
       page: 1,
       complete: false,
       visible: true,
-      loadingText: '<p>...Loading...<br>...This may take a while due to limitations with the API I found...</p>'
+      loadingText: '<p>Loading...</p>',
+      team: Object,
+      slide: 0,
     };
   },
   created() {
-    this.getPlayers();
+    this.getTeam();
   },
   methods: {
+    async getTeam() {
+      this.complete = false;
+      this.visible = true;
+      const response = await NBA.getTeam(this.$route.query.team);
+      this.slide = parseInt(this.$route.query.slide, 10);
+      if (response.data) {
+        this.team = response.data.team;
+        this.getPlayers();
+      }
+    },
     async getPlayers() {
       const response = await NBA.getTeamPlayers(this.team.name);
       if (response.data) {
@@ -48,6 +54,11 @@ export default {
         this.complete = true;
         this.visible = false;
       }
+    },
+    // Hacky
+    refresh() {
+      console.log('refresing');
+      this.getTeam();
     },
   },
 };

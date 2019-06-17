@@ -16,7 +16,7 @@ nbaRoutes.route('/teams').get((req, res) => {
         teams: body.data,
       });
     }
-    return res.status(500);
+    return res.status(500).send();
   });
 });
 
@@ -25,20 +25,20 @@ nbaRoutes.route('/teams/:id').get((req, res) => {
     url: `https://www.balldontlie.io/api/v1/teams/${req.params.id}`,
     json: true,
   };
-  request.get(options, (error, response, body) => {
+  request.get(options, (error, response, team) => {
     if (!error && response.statusCode === 200) {
       return res.status(200).send({
-        team: body,
+        team,
       });
     }
-    return res.status(500);
+    return res.status(500).send();
   });
 });
 
 nbaRoutes.route('/teams/:team/players/').get((req, res) => {
   Player.find({ 'team.name': req.params.team }, (error, players) => {
     if (error) {
-      return res.status(500);
+      return res.status(500).send();
     }
     return res.status(200).send({
       players,
@@ -49,7 +49,7 @@ nbaRoutes.route('/teams/:team/players/').get((req, res) => {
 nbaRoutes.route('/players/check').get((req, res) => {
   mongoose.connection.collection('players').countDocuments((err, count) => {
     if (err) {
-      return res.status(500);
+      return res.status(500).send();
     }
     if (count > 0) {
       return res.status(200).send({
@@ -65,7 +65,7 @@ nbaRoutes.route('/players/check').get((req, res) => {
 nbaRoutes.route('/players').get((req, res) => {
   Player.find({}, (error, players) => {
     if (error) {
-      return res.status(500);
+      return res.status(500).send();
     }
     return res.status(200).send({
       players,
@@ -74,9 +74,9 @@ nbaRoutes.route('/players').get((req, res) => {
 });
 
 nbaRoutes.route('/players/:id').get((req, res) => {
-  Player.find({ id: req.params.id }, (err, player) => {
+  Player.findById(req.params.id, (err, player) => {
     if (err) {
-      return res.status(500);
+      return res.status(500).send();
     }
     return res.status(200).send({
       player,
@@ -86,51 +86,51 @@ nbaRoutes.route('/players/:id').get((req, res) => {
 
 nbaRoutes.route('/players').post((req, res) => {
   const newPlayer = new Player({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    position: req.body.position,
-    height_feet: req.body.height_feet,
-    height_inches: req.body.height_inches,
-    weight_pounds: req.body.weight_pounds,
+    first_name: req.body.player.first_name,
+    last_name: req.body.player.last_name,
+    position: req.body.player.position,
+    height_feet: req.body.player.height_feet,
+    height_inches: req.body.player.height_inches,
+    weight_pounds: req.body.player.weight_pounds,
     team: {
-      id: req.body.team.id,
-      abbreviation: req.body.team.abbreviation,
-      city: req.body.team.city,
-      conference: req.body.team.conference,
-      division: req.body.team.division,
-      full_name: req.body.team.full_name,
-      name: req.body.team.name,
+      id: req.body.player.team.id,
+      abbreviation: req.body.player.team.abbreviation,
+      city: req.body.player.team.city,
+      conference: req.body.player.team.conference,
+      division: req.body.player.team.division,
+      full_name: req.body.player.team.full_name,
+      name: req.body.player.team.name,
     },
   });
   newPlayer.save((err) => {
     if (err) {
-      return res.status(500);
+      return res.status(500).send();
     }
-    return res.status(200);
+    return res.status(200).send();
   });
 });
 
 nbaRoutes.route('/players/:id').put((req, res) => {
   Player.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, player) => {
     if (err) {
-      return res.status(500);
+      return res.status(500).send();
     }
     if (!player) {
-      return res.status(500);
+      return res.status(500).send();
     }
-    return res.status(200);
+    return res.status(200).send();
   });
 });
 
 nbaRoutes.route('/players/:id').delete((req, res) => {
   Player.findByIdAndDelete(req.params.id, (err, player) => {
     if (err) {
-      return res.status(500);
+      return res.status(500).send();
     }
     if (!player) {
-      return res.status(500);
+      return res.status(500).send();
     }
-    return res.status(200);
+    return res.status(200).send();
   });
 });
 
@@ -147,7 +147,6 @@ nbaRoutes.route('/players/download/:page').get((req, res) => {
           continue;
         }
         const player = new Player({
-          id: body.data[i].id,
           first_name: body.data[i].first_name,
           last_name: body.data[i].last_name,
           position: body.data[i].position,
@@ -170,7 +169,7 @@ nbaRoutes.route('/players/download/:page').get((req, res) => {
         meta: body.meta,
       });
     }
-    return res.status(500);
+    return res.status(500).send();
   });
 });
 

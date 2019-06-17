@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     navigate() {
-      this.$router.push({ name: 'PlayerView', params: { team: this.team } });
+      this.$router.push({ name: 'PlayerView', query: {team: this.team.id, slide: 0} });
     },
     cardClass(team) {
       const result = [];

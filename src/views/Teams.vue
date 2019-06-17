@@ -2,7 +2,7 @@
   <div class='home'>
     <Loader :visible='visible'/>
     <img style='height:100px;width:180px;margin:1px auto;' src='../assets/nba2.png' />
-    <h3 style='color:#0d6bb7;font-size:1.5em;'>2018-2019</h3>
+    <h3 style='color:#0d6bb7;font-size:1.5em;'>2018-2019 Rosters</h3>
     <hr style='background:black;width:80%'> 
     <CardGrid :teams='teams'/>
   </div>
