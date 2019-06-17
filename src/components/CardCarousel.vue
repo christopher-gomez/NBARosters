@@ -62,7 +62,7 @@ export default {
   methods: {
     create() {
       this.activeSlide = this.players.length;
-      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
+      this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide } });
     },
     decSlide() {
       if (this.activeSlide === 0) {
@@ -70,18 +70,18 @@ export default {
       } else {
         this.activeSlide -= 1;
       }
-      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
+      this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide } });
     },
     incSlide() {
-      if(this.activeSlide === this.playArr.length || this.activeSlide === this.playArr.length - 1) {
+      if (this.activeSlide === this.playArr.length || this.activeSlide === this.playArr.length - 1) {
         this.activeSlide = 0;
       } else {
         this.activeSlide += 1;
       }
-      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
+      this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide } });
     },
     addPlayer() {
-      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide}});
+      this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide} });
       this.$emit('update');
     },
     deletePlayer(player) {
@@ -90,10 +90,10 @@ export default {
       });
       if (this.activeSlide === 0) {
         this.activeSlide += 1;
-        this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
+        this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide } });
       } else {
         this.activeSlide -= 1;
-        this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
+        this.$router.replace({ query: { team: this.$route.query.team, slide: this.activeSlide } });
       }
     },
   },
@@ -104,12 +104,10 @@ export default {
 .cards {
   margin: 0 auto;
 }
-
 .controls {
   color: white;
 }
-
-/* 
+/*
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
@@ -118,8 +116,7 @@ export default {
     display: none;
   }
 }
-
-/* 
+/*
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
 */
@@ -128,8 +125,7 @@ export default {
     display: none;
   }
 }
-
-/* 
+/*
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
