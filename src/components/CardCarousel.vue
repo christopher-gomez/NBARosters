@@ -8,14 +8,20 @@
         <Card ref='form' :team='team' @add='addPlayer()'/>
       </vue-glide-slide>
       <template slot='control'>
+        <button @click='activeSlide = 0'>
+          <font-awesome-icon icon='angle-double-left'/>
+        </button>
         <button @click='decSlide()'>
-          <font-awesome-icon icon='arrow-left'/>
+          <font-awesome-icon icon='angle-left'/>
         </button>
         <button style='display:inline-block' @click='create()'>
           <font-awesome-icon icon='plus'/>
         </button>
         <button @click='incSlide()'>
-          <font-awesome-icon icon='arrow-right'/>
+          <font-awesome-icon icon='angle-right'/>
+        </button>
+        <button @click='activeSlide = playArr.length - 1'>
+          <font-awesome-icon icon='angle-double-right'/>
         </button>
       </template>
     </vue-glide>

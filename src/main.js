@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faShare, faArrowRight, faArrowLeft, faPlus, faReply, faTrash,
+  faShare, faArrowLeft, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faPlus,
+  faReply, faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BootstrapVue from 'bootstrap-vue';
@@ -19,8 +20,11 @@ Vue.use(Vuelidate);
 library.add(faShare);
 library.add(faTrash);
 library.add(faReply);
-library.add(faArrowRight);
 library.add(faArrowLeft);
+library.add(faAngleRight);
+library.add(faAngleDoubleRight);
+library.add(faAngleLeft);
+library.add(faAngleDoubleLeft);
 library.add(faPlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
