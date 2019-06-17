@@ -39,7 +39,6 @@ export default {
   methods: {
     async getTeam() {
       this.complete = false;
-      this.visible = true;
       const response = await NBA.getTeam(this.$route.query.team);
       this.slide = parseInt(this.$route.query.slide, 10);
       if (response.data) {

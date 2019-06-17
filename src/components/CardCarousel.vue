@@ -84,8 +84,9 @@ export default {
     },
     deletePlayer(player) {
       this.playArr = this.playArr.filter((obj) => {
-        return obj.first_name !== player.first_name && obj.last_name !== player.last_name;
+        return obj._id !== player._id; 
       });
+      console.log(this.playArr)
       if (this.activeSlide === 0) {
         this.activeSlide += 1;
         this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
