@@ -18,7 +18,7 @@ app.use(cors());
 
 let murl = 'mongodb://localhost:27017/NBA';
 if (process.env.NODE_ENV === 'production') {
-  murl = `mongodb://${process.env.dbuser}:${process.env.dbpassword}@ds139037.mlab.com:39037/heroku_2w5t1nb`;
+  murl = process.env.PROD_MONGODB;
 }
 
 mongoose.connect(murl);
