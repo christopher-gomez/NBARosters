@@ -1,4 +1,4 @@
-# Code Test: 'Factoid Cards'
+# Code Test: 'Factoid Cards' [![Build Status](https://travis-ci.org/christophgomez/codetest.svg?branch=master)](https://travis-ci.org/christophgomez/codetest)
 
 Please read this whole README before starting.
 
@@ -26,34 +26,34 @@ We expect this test to take you about *6 - 10 hours*. Given that most people are
 The User Interface should be made out of a MVVM or MVC style frontend technology, using an asynchronous transport technology to talk to your backend.
 
 #### The user interface should present a card like entry containing
-* [ ] A small picture of the item
-* [ ] A description of the item
-* [ ] A fun factoid for the item
+* [ :white_check_mark:] A small picture of the item
+* [ :white_check_mark:] A description of the item
+* [ :white_check_mark:] A fun factoid for the item
 
 #### Interactions
-* [ ] The user should be able to dismiss the currently presented card, making it disappear and presenting the next card in the stack. (Think of swiping in Tinder)
-* [ ] The user should be able to create their own factoid to be added to the fact stack.
-* [ ] The user should be able to remove a factoid from the fact stack.
+* [ :white_check_mark:] The user should be able to dismiss the currently presented card, making it disappear and presenting the next card in the stack. (Think of swiping in Tinder)
+* [ :white_check_mark:] The user should be able to create their own factoid to be added to the fact stack.
+* [ :white_check_mark:] The user should be able to remove a factoid from the fact stack.
 
 ## Backend Requirements
 
 The Backend should be node.js with whatever middlewares you'd like to use.
 
 #### Interactions to support
-* [ ] Please provide a RESTful backend for the CRUDL of factoids
-* [ ] Factoids should be transported to the UI via JSON
-* [ ] Factoids should be stored in some sort of SQL/NoSQL/Flat File on the backend
+* [ :white_check_mark:] Please provide a RESTful backend for the CRUDL of factoids
+* [ :white_check_mark:] Factoids should be transported to the UI via JSON
+* [ :white_check_mark:] Factoids should be stored in some sort of SQL/NoSQL/Flat File on the backend
 
 ## BONUS
 
 Consider adding some improvements to what you've made to really showcase your strengths.
 
 ### Suggestions for improvements
-* [ ] Integrate this with an external Service or API (Pokemon API FTW)
-* [ ] Make it work on Mobile device sizes. 
-* [ ] Write a test or two for your code.
-* [ ] Add a lint file and make sure your code is linted. 
-* [ ] Add CD/CI to your project to auto-deploy it
+* [ :white_check_mark:] Integrate this with an external Service or API (Pokemon API FTW)
+* [ :white_check_mark:] Make it work on Mobile device sizes. 
+* [ :white_check_mark:] Write a test or two for your code.
+* [ :white_check_mark:] Add a lint file and make sure your code is linted. 
+* [ :white_check_mark:] Add CD/CI to your project to auto-deploy it
 * [ ] Edit this ReadMe with new suggestions for how to improve this code test
 
 ## Closing Thoughts
