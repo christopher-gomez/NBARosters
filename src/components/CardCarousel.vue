@@ -1,6 +1,6 @@
 <template>
   <div class='cards'>
-    <vue-glide v-model='activeSlide'>
+    <vue-glide v-model='activeSlide' :per-view='1'>
       <vue-glide-slide v-for='(player, index) in playArr' :key='index'>
         <Card :player='player' :team='team' @delete='deletePlayer'/>
       </vue-glide-slide>
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     create() {
-      this.activeSlide = this.players.length - 1;
+      this.activeSlide = this.players.length;
       this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
     },
     decSlide() {
@@ -67,7 +67,7 @@ export default {
       this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
     },
     incSlide() {
-      if(this.activeSlide === this.playArr.length - 1) {
+      if(this.activeSlide === this.playArr.length || this.activeSlide === this.playArr.length - 1) {
         this.activeSlide = 0;
       } else {
         this.activeSlide += 1;
@@ -75,14 +75,13 @@ export default {
       this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});
     },
     addPlayer() {
-      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide += 1 }});
+      this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide}});
       this.$emit('update');
     },
     deletePlayer(player) {
       this.playArr = this.playArr.filter((obj) => {
         return obj._id !== player._id; 
       });
-      console.log(this.playArr)
       if (this.activeSlide === 0) {
         this.activeSlide += 1;
         this.$router.replace({query: {team: this.$route.query.team, slide: this.activeSlide }});

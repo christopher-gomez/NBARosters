@@ -1,7 +1,7 @@
 <template>
   <div class='card' :class=cardClass(team.name) @click='navigate()'>
     <div class='front card-face'>
-      <h1 style='margin-top:1em'>{{team.name}}</h1>
+      <h1 style='margin:1em auto;width:225px;'>{{team.full_name}}</h1>
     </div>
     <img class='card-photo' :src="require(`@/assets/logos/${team.name}.png`)" alt='NBA Logo'/>
   </div>

@@ -25,4 +25,8 @@ export default {
   deletePlayer(id) {
     return Api().delete(`/nba/players/${id}`);
   },
+  updatePlayer(player) {
+    // eslint-disable-next-line no-underscore-dangle
+    return Api().put(`/nba/players/${player._id}`, { player });
+  },
 };

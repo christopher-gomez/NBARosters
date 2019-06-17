@@ -101,6 +101,7 @@ nbaRoutes.route('/players').post((req, res) => {
       full_name: req.body.player.team.full_name,
       name: req.body.player.team.name,
     },
+    additional_facts: [],
   });
   newPlayer.save((err) => {
     if (err) {
@@ -111,7 +112,7 @@ nbaRoutes.route('/players').post((req, res) => {
 });
 
 nbaRoutes.route('/players/:id').put((req, res) => {
-  Player.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, player) => {
+  Player.findByIdAndUpdate(req.params.id, req.body.player, { new: true }, (err, player) => {
     if (err) {
       return res.status(500).send();
     }
@@ -162,6 +163,7 @@ nbaRoutes.route('/players/download/:page').get((req, res) => {
             full_name: body.data[i].team.full_name,
             name: body.data[i].team.name,
           },
+          additional_facts: [],
         });
         player.save();
       }

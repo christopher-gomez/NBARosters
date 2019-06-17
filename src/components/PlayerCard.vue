@@ -2,12 +2,12 @@
   <div class='card' :class='{flipped: isFlipped}'>
     <div class='front card-face'>
       <img :src='photoLink' alt='NBA Player Headshot' class='card-photo'>
-      <div class='player-info' v-if='player'>
-        <h2 style='margin-top:1em;'>{{player.first_name+' '+player.last_name}}</h2>
+      <div class='player-info' v-if='currPlayer'>
+        <h2 style='margin-top:1em;'>{{currPlayer.first_name+' '+currPlayer.last_name}}</h2>
         <hr style='width:70%; background-color:white;'>
-        <p>Position: {{player.position}}</p>
-        <p>Height: {{player.height_feet}}'{{player.height_inches}}</p>
-        <p>Weight: {{player.weight_pounds}}</p>
+        <p>Position: {{currPlayer.position}}</p>
+        <p>Height: {{currPlayer.height_feet}}'{{currPlayer.height_inches}}</p>
+        <p>Weight: {{currPlayer.weight_pounds}}</p>
       </div>
       <div v-else class='player-info'>
         <input
@@ -62,9 +62,8 @@
           autocomplete='off'
           v-model='createdPlayer.weight_pounds'
         >
-        <br>
         <button
-          style='color:white; height:10px;width:60px;font-size:18px;'
+          style='display:block;color:white;height:10px;width:60px;font-size:18px;margin:.7em auto;'
           @click='createPlayer()'
         >Save</button>
       </div>
@@ -76,9 +75,29 @@
       </i>
     </div>
     <div class='back card-face'>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      <h3 style='margin-top:1em'>Additional Facts</h3>
+      <hr style='background:white;width:70%'>
+      <div v-if='currPlayer && currPlayer.additional_facts'>
+        <p v-for='(fact, index) in currPlayer.additional_facts' :key='index' v-on:mouseover='factHover=true' v-on:mouseleave='factHover=false'>{{ fact }}
+          <i class='fact-trash-button' v-if='factHover' @click='removeFact(fact)'>
+            <font-awesome-icon icon='trash'/>
+          </i>
+        </p>
+      </div>
+      <input
+          class='form-styling'
+          type='text'
+          name='additional_fact'
+          placeholder='Fact'
+          style='width:80%;height:35px;margin:1em 2em;display:block;bottom:2em; position:absolute;'
+          autocomplete='off'
+          v-model='addiFact'
+        >
       <i class='flip-button' @click='flip()'>
         <font-awesome-icon icon='reply'/>
+      </i>
+      <i class='trash-button' @click='addFact()'>
+          <font-awesome-icon icon='plus'/>
       </i>
     </div>
   </div>
@@ -128,10 +147,16 @@ export default {
         required,
         integer,
       }
+    },
+    addiFact: {
+      required,
+      minLength: minLength(1),
     }
   },
   data() {
     return {
+      currPlayer: Object,
+      updatePlayer: Object,
       isFlipped: false,
       photoLink: '',
       createdPlayer: {
@@ -152,9 +177,13 @@ export default {
           name: this.team.name
         },
       },
+      addiFact: '',
+      factHover: false,
     };
   },
   mounted() {
+    this.currPlayer = this.player;
+    this.updatePlayer = this.player;
     if (this.player === undefined) {
       this.photoLink = require('@/assets/sil.png');
       return;
@@ -187,7 +216,7 @@ export default {
     },
     async createPlayer() {
       this.$v.$touch()
-      if(this.$v.$invalid) {
+      if(this.$v.createdPlayer.$invalid) {
         return;
       } else { 
         let res = this.createdPlayer.full_name.split(' ');
@@ -210,7 +239,27 @@ export default {
         this.$emit('delete', this.player);
       }
     },
-  }
+    async addFact() {
+      this.$v.$touch()
+      if(this.$v.addiFact.$invalid) {
+        return;
+      } else { 
+        this.updatePlayer.additional_facts.push(this.addiFact);
+        const response = await NBA.updatePlayer(this.updatePlayer);
+        if (response.status === 200) {
+          this.addiFact = '';
+          this.currPlayer = this.updatePlayer;
+        }
+      }
+    },
+    async removeFact(fact) {
+      this.updatePlayer.additional_facts = this.updatePlayer.additional_facts.filter(item => item !== fact);
+      const response = await NBA.updatePlayer(this.updatePlayer);
+      if (response.status === 200) {
+        this.currPlayer = this.updatePlayer;
+      }
+    },
+  },
 };
 </script>
 
@@ -229,6 +278,7 @@ export default {
 ::placeholder {
   /* Firefox, Chrome, Opera */
   color: white;
+  opacity: .4;
 }
 
 :-ms-input-placeholder {
@@ -316,7 +366,17 @@ textarea:focus {
 }
 
 .back {
-  background-color: gray;
+  background: #000000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #434343,
+    #000000
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #434343,
+    #000000
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transform: rotateY(180deg);
   text-align: center;
   color: darkgray;
@@ -353,7 +413,15 @@ textarea:focus {
   left: 3em;
 }
 
+.fact-trash-button {
+  display:inline-block; 
+  margin-left:1em;
+}
+
 .trash-button:hover {
+  cursor: pointer;
+}
+.fact-trash-button:hover {
   cursor: pointer;
 }
 </style>

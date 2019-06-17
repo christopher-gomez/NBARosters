@@ -19,6 +19,7 @@ const playerSchema = new Schema({
     full_name: String,
     name: String,
   },
+  additional_facts: Array,
 });
 
 const Player = mongoose.model('Player', playerSchema, 'players');
