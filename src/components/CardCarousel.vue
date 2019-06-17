@@ -14,7 +14,7 @@
         <button class='controls' @click='decSlide()'>
           <font-awesome-icon icon='angle-left'/>
         </button>
-        <button style='display:inline-block' @click='create()'>
+        <button style='display:inline-block;color:white;' @click='create()'>
           <font-awesome-icon icon='plus'/>
         </button>
         <button class='controls' @click='incSlide()'>
@@ -103,6 +103,10 @@ export default {
 <style scoped>
 .cards {
   margin: 0 auto;
+}
+
+.controls {
+  color: white;
 }
 
 /* 

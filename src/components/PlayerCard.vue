@@ -4,7 +4,7 @@
       <img :src='photoLink' alt='NBA Player Headshot' class='card-photo'>
       <div class='player-info' v-if='currPlayer'>
         <h2 style='margin-top:1em;'>{{currPlayer.first_name+' '+currPlayer.last_name}}</h2>
-        <hr style='width:70%; background-color:white;'>
+        <hr style='width:70%; background-color:black;'>
         <p>Position: {{currPlayer.position}}</p>
         <p>Height: {{currPlayer.height_feet}}'{{currPlayer.height_inches}}</p>
         <p>Weight: {{currPlayer.weight_pounds}}</p>
@@ -19,7 +19,7 @@
           autocomplete='off'
           v-model='createdPlayer.full_name'
         >
-        <hr style='width:70%; background-color:white;'>
+        <hr style='width:70%; background-color:black;'>
         <label for='position'>Position:</label>
         <input
           class='form-styling'
@@ -63,7 +63,7 @@
           v-model='createdPlayer.weight_pounds'
         >
         <button
-          style='display:block;color:white;height:10px;width:60px;font-size:18px;margin:.7em auto;'
+          style='display:block;color:black;height:10px;width:60px;font-size:18px;margin:.7em auto;'
           @click='createPlayer()'
         >Save</button>
       </div>
@@ -270,26 +270,26 @@ export default {
   height: 25px;
   border: none;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  color: black;
   display: inline-block;
   text-align: center;
 }
 
 ::placeholder {
   /* Firefox, Chrome, Opera */
-  color: white;
-  opacity: .4;
+  color: black;
+  opacity: .6;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: white;
+  color: black;
 }
 
 ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: white;
+  color: black;
 }
 
 label {
@@ -322,18 +322,12 @@ textarea:focus {
   box-shadow: 0 6px 6px 0 rgba(60, 64, 67, 0.302),
     0 1px 3px 1px rgba(60, 64, 67, 0.149);
   border-radius: 10px;
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #abbaab;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   pointer-events: auto;
+  color:black;
 }
 
 .front,
@@ -367,20 +361,12 @@ textarea:focus {
 }
 
 .back {
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #abbaab;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transform: rotateY(180deg);
   text-align: center;
-  color: darkgray;
+  color: black;
   border-radius: 10px;
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
@@ -388,6 +374,7 @@ textarea:focus {
 
 .back p {
   margin: 0;
+  font-weight:200;
 }
 
 .flipped {
