@@ -68,7 +68,7 @@
         >Save</button>
       </div>
       <i class='flip-button' @click='flip()' v-if='player'>
-        <font-awesome-icon icon='reply'/>
+        <font-awesome-icon icon='share'/>
       </i>
       <i class='trash-button' @click='deletePlayer()' v-if='player'>
         <font-awesome-icon icon='trash'/>
@@ -95,10 +95,10 @@
           v-on:keyup.enter='addFact()'
         >
       <i class='flip-button' @click='flip()'>
-        <font-awesome-icon icon='reply'/>
+        <font-awesome-icon icon='share'/>
       </i>
       <i class='trash-button' @click='addFact()'>
-          <font-awesome-icon icon='plus'/>
+        <font-awesome-icon icon='plus'/>
       </i>
     </div>
   </div>
@@ -375,7 +375,7 @@ label {
 .flip-button {
   position: absolute;
   bottom: 1em;
-  left: 1em;
+  right: 1em;
 }
 
 .flip-button:hover {
@@ -385,7 +385,7 @@ label {
 .trash-button {
   position: absolute;
   bottom: 1em;
-  left: 3em;
+  left: 1em;
 }
 
 .fact-trash-button {

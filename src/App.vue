@@ -31,8 +31,11 @@ export default {
       const response = await NBA.checkPlayersExist();
       if (response.data) {
         if (response.data.exist === true) {
-          this.loading = false;
-          this.visible = true;
+          let self = this;
+          setTimeout(() => {
+            self.visible = true;
+            self.loading = false;
+          }, 1000);
           return;
         } else {
           this.downloadPlayers();
