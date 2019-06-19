@@ -5,21 +5,26 @@ const Player = require('../models/Player');
 
 const nbaRoutes = express.Router();
 
+// Get all teams (From external API)
 nbaRoutes.route('/teams').get((req, res) => {
+  // API access point + we want JSON
   const options = {
     url: 'https://www.balldontlie.io/api/v1/teams',
     json: true,
   };
   request.get(options, (error, response, body) => {
+    // Everything went well, return the response
     if (!error && response.statusCode === 200) {
       return res.status(200).send({
         teams: body.data,
       });
     }
+    // Something went wrong
     return res.status(500).send();
   });
 });
 
+// Get a specific team by ID (From external API)
 nbaRoutes.route('/teams/:id').get((req, res) => {
   const options = {
     url: `https://www.balldontlie.io/api/v1/teams/${req.params.id}`,
@@ -35,18 +40,28 @@ nbaRoutes.route('/teams/:id').get((req, res) => {
   });
 });
 
+// Get all players on a specific team
 nbaRoutes.route('/teams/:team/players/').get((req, res) => {
+  // Mongoose queries make things easy
   Player.find({ 'team.name': req.params.team }, (error, players) => {
+    // something went wrong
     if (error) {
       return res.status(500).send();
     }
+    // Return query results
     return res.status(200).send({
       players,
     });
   });
 });
 
+// Check if players have been downloaded from external API into db
 nbaRoutes.route('/players/check').get((req, res) => {
+  // Count the players in the collection, probably not the best way to do it
+  /* What if user deletes all official players and only custom players remain?
+     Still returns true. Maybe don't let users delete official players?
+     Include a flag in player schema: Official vs Custom
+  */
   mongoose.connection.collection('players').countDocuments((err, count) => {
     if (err) {
       return res.status(500).send();
@@ -62,6 +77,7 @@ nbaRoutes.route('/players/check').get((req, res) => {
   });
 });
 
+// Get all players in db
 nbaRoutes.route('/players').get((req, res) => {
   Player.find({}, (error, players) => {
     if (error) {
@@ -73,6 +89,7 @@ nbaRoutes.route('/players').get((req, res) => {
   });
 });
 
+// Get a specific player by ID
 nbaRoutes.route('/players/:id').get((req, res) => {
   Player.findById(req.params.id, (err, player) => {
     if (err) {
@@ -84,6 +101,7 @@ nbaRoutes.route('/players/:id').get((req, res) => {
   });
 });
 
+// Create a new player
 nbaRoutes.route('/players').post((req, res) => {
   const newPlayer = new Player({
     first_name: req.body.player.first_name,
@@ -112,6 +130,7 @@ nbaRoutes.route('/players').post((req, res) => {
   });
 });
 
+// Update a player
 nbaRoutes.route('/players/:id').put((req, res) => {
   Player.findByIdAndUpdate(req.params.id, req.body.player, { new: true }, (err, player) => {
     if (err) {
@@ -124,6 +143,7 @@ nbaRoutes.route('/players/:id').put((req, res) => {
   });
 });
 
+// Delete a specific player
 nbaRoutes.route('/players/:id').delete((req, res) => {
   Player.findByIdAndDelete(req.params.id, (err, player) => {
     if (err) {
@@ -136,18 +156,29 @@ nbaRoutes.route('/players/:id').delete((req, res) => {
   });
 });
 
+// Download players from external API
+/*
+  External API returns max 100 players in a response and utilizes
+  pagination.
+  Easy Solution: Have client recurse or loop through pages until no more pages to download.
+  Pass the current page from the client, to us, then external API
+*/
 nbaRoutes.route('/players/download/:page').get((req, res) => {
   const options = {
     url: `https://www.balldontlie.io/api/v1/players?page=${req.params.page}&per_page=100`,
     json: true,
   };
+  // Get the response
   request.get(options, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       for (let i = 0; i < body.data.length; i += 1) {
+        // IF player has incomplete data, we don't even want him. Useless
         if (body.data[i].height_feet === null || body.data[i].position === '') {
+          // Continue to the next player
           // eslint-disable-next-line no-continue
           continue;
         }
+        // Create the player with the response data
         const player = new Player({
           first_name: body.data[i].first_name,
           last_name: body.data[i].last_name,
@@ -167,8 +198,11 @@ nbaRoutes.route('/players/download/:page').get((req, res) => {
           },
           additional_facts: [],
         });
+        // Save him
         player.save();
       }
+      // Return the current page we just downloaded so client
+      // can continue to the next.
       return res.status(200).send({
         meta: body.meta,
       });
