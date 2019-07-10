@@ -25,13 +25,14 @@ export default {
     const { bubble, bubblePulse } = this.$refs;
     const timeline = new TimelineLite({
       onComplete: () => timeline.restart()
-    })
+    });
 
     timeline.to(bubble, 0.4, {
       scale: 0.8,
       rotation: 16,
       ease: Back.easeOut.config(1.7)
     });
+    
     timeline.to(
       bubblePulse,
       0.5,
@@ -47,7 +48,7 @@ export default {
       rotation: '-=16',
       ease: Elastic.easeOut.config(2.5, 0.5)
 		});
-		
+
     timeline.to(
       bubblePulse,
       1.1,
@@ -58,7 +59,7 @@ export default {
       },
       '-=1.2'
 		);
-		
+
   }
 };
 </script>
@@ -68,7 +69,7 @@ export default {
   position: fixed; /* Sit on top of the page content */
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
-  top: 0; 
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;

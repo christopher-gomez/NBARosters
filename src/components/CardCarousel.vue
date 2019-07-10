@@ -1,6 +1,6 @@
 <template>
   <div class='cards'>
-    <vue-glide v-model='activeSlide' :per-view='1'>
+    <vue-glide v-model='activeSlide' :per-view='3'>
       <vue-glide-slide v-for='(player, index) in playArr' :key='index'>
         <Card :player='player' :team='team' @delete='deletePlayer'/>
       </vue-glide-slide>

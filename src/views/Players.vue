@@ -5,8 +5,7 @@
       <button
         style='disaply:inline-block;width:1%;color:white;'
         @click='$router.go(-1)'
-        v-if='!visible'
-      >
+        v-if='!visible'>
         <font-awesome-icon icon='arrow-left'/>
       </button>
       <h1 style='display:inline-block;width:94%' v-if='!visible'>{{team.full_name}}</h1>
