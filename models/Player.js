@@ -23,5 +23,5 @@ const playerSchema = new Schema({
   additional_facts: Array,
 });
 
-const Player = mongoose.model('Player', playerSchema, 'players');
+const Player = mongoose.model('Player', playerSchema, 'NBAPlayers');
 module.exports = Player;

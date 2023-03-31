@@ -22,14 +22,14 @@ db.once("open", () => {
 
   // Listen for connections on port
   server = app.listen(port, () => {
-    logger.info(`Listening to port ${port}`);
+    console.log(`Listening to port ${port}`);
   });
 });
 
 const exitHandler = () => {
   if (server) {
     server.close(() => {
-      logger.info("Server closed");
+      console.log("Server closed");
       process.exit(1);
     });
   } else {
@@ -38,7 +38,7 @@ const exitHandler = () => {
 };
 
 const unexpectedErrorHandler = (error) => {
-  logger.error(error);
+  console.error(error);
   exitHandler();
 };
 
@@ -46,7 +46,7 @@ process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
 
 process.on("SIGTERM", () => {
-  logger.info("SIGTERM received");
+  console.log("SIGTERM received");
   if (server) {
     server.close();
   }
