@@ -189,7 +189,7 @@ export default {
       this.photoLink = require('@/assets/sil.png');
       return;
     }
-    var url = `https://nba-players.herokuapp.com/players/${
+    var url = `https://aerobic-ward-301402.wl.r.appspot.com/players/${
       this.player.last_name
     }/${this.player.first_name}`;
     var self = this;
