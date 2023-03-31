@@ -8,7 +8,6 @@ import {
   faReply, faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vue-glide-js/dist/vue-glide.css';
@@ -30,8 +29,6 @@ library.add(faAngleLeft);
 library.add(faAngleDoubleLeft);
 library.add(faPlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-Vue.use(BootstrapVue);
 
 new Vue({
   router,
