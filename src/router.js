@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import Router, { createWebHistory } from 'vue-router'
+import Router from 'vue-router'
 import Home from './views/Teams.vue';
 import PlayerView from './views/Players.vue';
 
 Vue.use(Router);
 
 export default new Router({
-  history: createWebHistory(),
+  mode: 'history',
   routes: [
     {
       path: '/',
