@@ -8,8 +8,6 @@ import {
   faReply, faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vue-glide-js/dist/vue-glide.css';
 import Vuelidate from 'vuelidate';
 import App from './App.vue';
