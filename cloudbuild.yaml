@@ -7,6 +7,7 @@ steps:
   args: ["run", "create-env"]
   env:
     - 'MONGODB_URL=${_MONGODB_URL}'
+    - 'APP_URL=${_APP_URL}'
 - name: node:16.0.0
   entrypoint: npm
   args: ["run", "build"]
