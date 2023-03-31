@@ -27,10 +27,11 @@ const nbaRoutes = require("./express_routes/nba_api.js");
 app.use("/nba", nbaRoutes);
 
 // If not accessing the API, serve up the frontend
-app.use("/", serveStatic(path.join(__dirname, "/dist")));
+app.use("/", serveStatic(path.join(__dirname, "/dist"), { etag: false, lastModified: false }));
 // Catch all routes and redirect to the index file
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/dist/index.html"));
+  res.set({ "Content-Type": "text/html" });
+  res.sendFile(path.join(__dirname, "/dist/index.html"), { etag: false, lastModified: false });
 });
 
 const server = require("http").createServer(app);
