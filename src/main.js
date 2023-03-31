@@ -1,4 +1,7 @@
+import '@babel/polyfill'
+import 'mutationobserver-shim'
 import Vue from 'vue';
+import './plugins/bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faShare, faArrowLeft, faAngleRight, faAngleDoubleRight, faAngleLeft, faAngleDoubleLeft, faPlus,
