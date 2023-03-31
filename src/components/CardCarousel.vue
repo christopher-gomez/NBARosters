@@ -33,7 +33,7 @@ import Card from '@/components/PlayerCard.vue';
 import { Glide, GlideSlide } from 'vue-glide-js';
 
 export default {
-  name: 'Stack',
+  name: 'CardStack',
   components: {
     Card,
     [Glide.name]: Glide,

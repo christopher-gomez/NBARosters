@@ -17,7 +17,7 @@ import NBA from '@/services/NBAService.js';
 import Loader from '@/components/LoadingSpinner.vue';
 
 export default {
-  name: 'Teams',
+  name: 'TeamView',
   components: {
     CardGrid,
     Loader,
