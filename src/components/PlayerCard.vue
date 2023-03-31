@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import NBA from '@/services/NBAService';
+import NBA from '@/services/NBAService.js';
 import { required, minLength, maxLength, integer, alpha } from 'vuelidate/lib/validators';
 
 export default {
