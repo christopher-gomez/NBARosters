@@ -4,9 +4,12 @@ const mongoose = require("mongoose");
 const app = require("./server");
 
 // Determine mongoDB URL
-let murl = "mongodb://localhost:27017/NBA";
+let murl;
 if (process.env.NODE_ENV === "production") {
   murl = process.env.MONGODB_URL;
+} else {
+    const config = require('./localConfig');
+    murl = config.MONGODB_URL;
 }
 
 let server;

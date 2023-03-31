@@ -5,6 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const serveStatic = require("serve-static");
 const path = require("path");
+const history = require('connect-history-api-fallback');
 
 // Create the app (Express instance, app entrypoint)
 const app = express();
@@ -18,6 +19,7 @@ app.use(
   })
 );
 app.use(cors());
+app.use(history());
 
 // Set up express API routes
 const nbaRoutes = require("./express_routes/nba_api.js");
